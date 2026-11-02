@@ -1,0 +1,15 @@
+const express = require("express");
+const { getProfile, updateProfile, changePassword, updateAvatar } = require("../controllers/userController");
+const { protect } = require("../middleware/authMiddleware");
+const upload = require("../middleware/uploadMiddleware");
+
+const router = express.Router();
+
+router.use(protect);
+
+router.get("/profile", getProfile);
+router.put("/profile", updateProfile);
+router.put("/password", changePassword);
+router.put("/avatar", upload.single("avatar"), updateAvatar);
+
+module.exports = router;

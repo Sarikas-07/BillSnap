@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand palette — derived from the BillSnap mark */
+  --navy: #0f2043;
+  --navy-2: #16305e;
+  --blue: #2e6ff2;
+  --blue-light: #6ea1ff;
+  --amber: #fdb813;
+  --amber-2: #ff8a1e;
+  --mint: #17b892;
+
+  --bg: #f5f8fd;
+  --bg-alt: #eef3fb;
+  --surface: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.6);
+  --border: #e2e8f4;
+  --ink: #0c1730;
+  --ink-soft: #5b6787;
+  --ink-faint: #94a0bf;
+
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+
+  --shadow-sm: 0 1px 2px rgba(15, 32, 67, 0.06);
+  --shadow-md: 0 8px 24px -8px rgba(15, 32, 67, 0.14);
+  --shadow-lg: 0 24px 60px -20px rgba(15, 32, 67, 0.28);
+
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-navy-2: var(--navy-2);
+  --color-blue: var(--blue);
+  --color-blue-light: var(--blue-light);
+  --color-amber: var(--amber);
+  --color-amber-2: var(--amber-2);
+  --color-mint: var(--mint);
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, .font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-mono-data {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* Glassmorphism surface */
+.glass {
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(226, 232, 244, 0.7);
+}
+
+/* Voltage / bolt divider used as the signature motif */
+.bolt-divider {
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--amber) 60%, transparent 100%);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5f0;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a9bcec;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.cursor-glow {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(46, 111, 242, 0.08), transparent 40%);
+}
+
+@keyframes pulse-bolt {
+  0%, 100% { opacity: 0.5; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.4); }
+}
+.animate-pulse-bolt {
+  animation: pulse-bolt 1.8s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+/* Print support: hide app chrome, keep only page content when printing
+   any screen directly (Ctrl+P). The certificate-style report PDF has its
+   own dedicated print path via jsPDF and isn't affected by this. */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+  }
+  main {
+    padding: 0 !important;
+  }
+}
+
